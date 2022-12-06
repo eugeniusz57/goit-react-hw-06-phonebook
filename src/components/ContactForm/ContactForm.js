@@ -5,11 +5,15 @@ import {
   Input,
   ButtonSubmit,
 } from './ContactForm.styled';
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact } from 'redux/store';
+import { nanoid } from 'nanoid';
 
-export function ContactForm({ onSubmitDate }) {
+export function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const contactItems = useSelector(state => state.contacts.contact);
+  const dispatch = useDispatch();
 
   const hendleNameChange = e => {
     const { name, value } = e.target;
@@ -29,7 +33,16 @@ export function ContactForm({ onSubmitDate }) {
 
   const hendlOnSubmit = e => {
     e.preventDefault();
-    onSubmitDate({ name, number });
+    if (
+      contactItems.find(
+        contact =>
+          contact.name.toLowerCase() === name.toLowerCase() ||
+          contact.number === number
+      )
+    ) {
+      return alert(`${name} or number: ${number} is alredy in contact`);
+    }
+    dispatch(addContact({ id: nanoid(), name, number }));
     Clear();
   };
 
@@ -62,5 +75,3 @@ export function ContactForm({ onSubmitDate }) {
     </FormAddContact>
   );
 }
-
-ContactForm.propTypes = { onSubmit: PropTypes.func };
