@@ -20,7 +20,7 @@ export const ContactList = () => {
 
   return (
     <List>
-      {contactsItems.length === 0 ? (
+      {findContact().length === 0 ? (
         <p>You don't have any contact</p>
       ) : (
         findContact().map(({ id, name, number }) => (
