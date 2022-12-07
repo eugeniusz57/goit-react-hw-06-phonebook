@@ -4,12 +4,13 @@ import {
   FormAddContact,
 } from 'components/ContactForm/ContactForm.styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { setfilter } from '../../redux/store';
+import { setfilter } from 'redux/myContact';
+import { getStatusFilter } from 'redux/selectors';
 
 export const Filter = () => {
   const dispatch = useDispatch();
-  const filter = useSelector(state => state.contacts.filter);
-
+  const filter = useSelector(getStatusFilter);
+  console.log('filter', filter);
   const handleFilterChange = e => {
     dispatch(setfilter(e.target.value));
   };

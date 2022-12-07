@@ -6,13 +6,12 @@ import {
   ButtonSubmit,
 } from './ContactForm.styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/store';
-import { nanoid } from 'nanoid';
-
+import { addContact } from 'redux/myContact';
+import { getContacts } from 'redux/selectors';
 export function ContactForm() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  const contactItems = useSelector(state => state.contacts.contact);
+  const contactItems = useSelector(getContacts);
   const dispatch = useDispatch();
 
   const hendleNameChange = e => {
@@ -42,7 +41,7 @@ export function ContactForm() {
     ) {
       return alert(`${name} or number: ${number} is alredy in contact`);
     }
-    dispatch(addContact({ id: nanoid(), name, number }));
+    dispatch(addContact({ name, number }));
     Clear();
   };
 

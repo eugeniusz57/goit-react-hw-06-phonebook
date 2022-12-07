@@ -1,22 +1,28 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteContact } from 'redux/store';
+import { getContacts, getStatusFilter } from 'redux/selectors';
+import { deleteContact } from 'redux/myContact';
 import { ButtonDelete, List, ListItem } from './ContactList.styled';
 
 export const ContactList = () => {
-  const contactItems = useSelector(state => state.contacts.contact);
-  const filter = useSelector(state => state.contacts.filter);
   const dispatch = useDispatch();
-
+  const contactsItems = useSelector(getContacts);
+  const filter = useSelector(getStatusFilter);
   const findContact = () => {
-    const toLowerFilter = filter.toLowerCase();
-    return contactItems.filter(contact =>
+    const toLowerFilter = filter.toLowerCase().trim();
+    if (!toLowerFilter) {
+      return contactsItems;
+    }
+
+    return contactsItems.filter(contact =>
       contact.name.toLowerCase().includes(toLowerFilter)
     );
   };
 
   return (
     <List>
-      {contactItems.length > 0 ? (
+      {contactsItems.length === 0 ? (
+        <p>You don't have any contact</p>
+      ) : (
         findContact().map(({ id, name, number }) => (
           <ListItem key={id}>
             <span>
@@ -24,11 +30,9 @@ export const ContactList = () => {
             </span>
             <ButtonDelete onClick={() => dispatch(deleteContact(id))}>
               ❌
-            </ButtonDelete>{' '}
+            </ButtonDelete>
           </ListItem>
         ))
-      ) : (
-        <p>You don't have any contact</p>
       )}
     </List>
   );
