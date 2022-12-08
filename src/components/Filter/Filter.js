@@ -4,7 +4,7 @@ import {
   FormAddContact,
 } from 'components/ContactForm/ContactForm.styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { setfilter } from 'redux/myContact';
+import { setfilter } from 'redux/filterSlice';
 import { getStatusFilter } from 'redux/selectors';
 
 export const Filter = () => {

@@ -6,7 +6,7 @@ import {
   ButtonSubmit,
 } from './ContactForm.styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'redux/myContact';
+import { addContact } from 'redux/myContactSlice';
 import { getContacts } from 'redux/selectors';
 export function ContactForm() {
   const [name, setName] = useState('');
@@ -25,7 +25,7 @@ export function ContactForm() {
     }
   };
 
-  const Clear = () => {
+  const clear = () => {
     setName('');
     setNumber('');
   };
@@ -42,7 +42,7 @@ export function ContactForm() {
       return alert(`${name} or number: ${number} is alredy in contact`);
     }
     dispatch(addContact({ name, number }));
-    Clear();
+    clear();
   };
 
   return (
