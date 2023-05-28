@@ -6,7 +6,7 @@ import { ContactList } from './ContactList/ContactList ';
 import { useTheme } from 'hooks/useTheme';
 
 export const App = () => {
-  const { theme, setTheme } = useTheme();
+  const { _, setTheme } = useTheme();
 
   const handleLightThemeClick = () => {
     setTheme('light');
