@@ -16,5 +16,7 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 18;
-  color: #010101;
+  color: var(--button-text-color);
+  background-color: var(--background-color);
+  transition: background-color 200ms linear;
 `;
